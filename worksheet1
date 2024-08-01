@@ -1,0 +1,110 @@
+Exercise: 1
+
+Explore pandas library using the following the dataset
+https://drive.google.com/file/d/1Yzw9jJUpbB6ea24RQEoRzceWOgPQHidc/view?usp=drive_link
+
+Read and load it onto a DataFrame.
+import pandas as pd
+df = pd.read_csv('IPL IMB381IPL2013(1).csv')
+#print(df)
+dp = pd.DataFrame(df, columns=['Sl.NO.','PLAYER NAME','AGE','COUNTRY','TEAM','PLAYING ROLE','T-RUNS','T-WKTS','ODI-RUNS-S','ODI-SR-B','ODI-WKTS','ODI-SR-BL','CAPTAINCY EXP','RUNS-S','HS','AVE','SR-B','SIXERS','RUNS-C','WKTS','AVE-BL',    'ECON','SR-BL','AUCTION YEAR','BASE PRICE','SOLD PRICE'])
+print(dp)
+
+use pandas features such as selecting, filtering, aggregating, joining, slicing/dicing of data to
+prepare and explore the dataset.
+	Import pandas as pd
+	data=pd.read_csv('IPL IMB381IPL2013(1).csv',index_col='TEAM')
+first=data.loc['RCB']
+print(first)
+
+filt=df.filter(["PLAYER NAME", "AGE", "TEAM"])
+print(filt)
+
+Displaying First Few Records of the DataFrame
+	df_first_3=df.head(3)
+print(df_first_3)
+
+Finding Summary of the DataFrame
+	summary=df.describe()
+print(summary)
+
+Slicing and Indexing of DataFrame
+	df1 = df.iloc[0:4]
+print(df1)
+
+Find the occurrences of each unique value in a column.
+	print(dp['TEAM'].value_counts())
+
+Perform cross tabulation between PLAYING ROLE and AGE will give number of players in each
+age category for each playing role
+import pandas as pd
+df=pd.read_csv('IPL IMB381IPL2013.csv')
+cross_tab=pd.crosstab(df['PLAYING ROLE'],df['AGE'])
+print(cross_tab)
+
+Sorting Data Frame by Column Values
+	import pandas as pd
+df=pd.read_csv('IPL IMB381IPL2013.csv')
+sorted_df=df.sort_values(by='AGE')
+print(sorted_df)
+
+
+Find average SOLD PRICE for each age category, group all records by AGE and then apply mean()
+on SOLD PRICE column
+	import pandas as pd
+df=pd.read_csv('IPL IMB381IPL2013.csv')
+avg_sold_price_by_age=df.groupby('AGE')['SOLD PRICE'].mean()
+print(avg_sold_price_by_age)
+
+Perform joining of data frame- compare the average SOLD PRICE for different AGE categories
+with the different age and PLAYING ROLE categories, we need to merge the DataFrames
+soldprice_by_age and soldprice_by_ age_role. The common column is AGE and this needs outer
+join. Age is considered as categorical varaibale(as 1,2,3)
+
+To find whether players carry a premium if they belong to a specific AGE and PLAYING ROLE
+category. The premium (we will call it change) is calculated in percentage terms and calculated
+as follows
+
+Exploration of data using visualization-Drawing Plots -Matplotlib -Bar Chart, scatter plot
+Histogram, Correlation and Heatmap.
+
+df = pd.read_csv('data.csv')
+import matplotlib.pyplot as plt
+
+avg_sold_price_by_age = df.groupby('AGE')['SOLD PRICE'].mean()
+
+plt.figure(figsize=(8, 6))
+avg_sold_price_by_age.plot(kind='bar', color='skyblue')
+plt.title('Average SOLD PRICE by AGE')
+plt.xlabel('AGE')
+plt.ylabel('Average SOLD PRICE')
+plt.xticks(rotation=0)
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+# Example: Scatter plot of SOLD PRICE vs. AGE
+plt.figure(figsize=(8, 6))
+plt.scatter(df['AGE'], df['SOLD PRICE'], color='green', alpha=0.5)
+plt.title('Scatter Plot of SOLD PRICE vs. AGE')
+plt.xlabel('AGE')
+plt.ylabel('SOLD PRICE')
+plt.grid(True, linestyle='--', alpha=0.5)
+plt.tight_layout()
+plt.show()
+# Example: Histogram of SOLD PRICE
+plt.figure(figsize=(8, 6))
+plt.hist(df['SOLD PRICE'], bins=20, color='orange', edgecolor='black', alpha=0.7)
+plt.title('Histogram of SOLD PRICE')
+plt.xlabel('SOLD PRICE')
+plt.ylabel('Frequency')
+plt.grid(axis='y', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+# Calculate correlation matrix
+corr_matrix = df.corr()
+
+# Plot heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', vmin=-1, vmax=1)
+plt.title('Correlation Heatmap')
+plt.show()
